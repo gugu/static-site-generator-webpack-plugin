@@ -101,12 +101,6 @@ var getAssetsFromCompiler = function(compiler, webpackStatsJson) {
   for (var chunk in webpackStatsJson.assetsByChunkName) {
     var chunkValue = webpackStatsJson.assetsByChunkName[chunk];
 
-    // Webpack outputs an array for each chunk when using sourcemaps
-    if (chunkValue instanceof Array) {
-      // Is the main bundle always the first element?
-      chunkValue = chunkValue[0];
-    }
-
     if (compiler.options.output.publicPath) {
       chunkValue = compiler.options.output.publicPath + chunkValue;
     }

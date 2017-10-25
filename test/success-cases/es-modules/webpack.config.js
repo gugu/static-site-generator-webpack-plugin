@@ -11,9 +11,7 @@ var paths = [
 ];
 
 module.exports = {
-  entry: {
-    main: __dirname + '/index.js'
-  },
+  entry: __dirname + '/index.js',
 
   output: {
     filename: 'index.js',
@@ -23,14 +21,18 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015']
-        }
+        use:[
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['es2015']
+            }
+          }
+        ]
       }
     ]
   },
@@ -38,6 +40,11 @@ module.exports = {
   devtool: 'source-map',
 
   plugins: [
-    new StaticSiteGeneratorPlugin('main', paths, { template: template })
+    new StaticSiteGeneratorPlugin({
+      paths: paths,
+      locals: {
+        template: template
+      }
+    })
   ]
 };

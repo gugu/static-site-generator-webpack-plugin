@@ -5,9 +5,7 @@ var fs = require('fs');
 var template = ejs.compile(fs.readFileSync(__dirname + '/template.ejs', 'utf-8'))
 
 module.exports = {
-  entry: {
-    main: __dirname + '/index.js'
-  },
+  entry: __dirname + '/index.js',
 
   output: {
     filename: 'index.js',
@@ -17,6 +15,11 @@ module.exports = {
   },
 
   plugins: [
-    new StaticSiteGeneratorPlugin('index.js', '/', { template: template })
+    new StaticSiteGeneratorPlugin({
+      paths: '/',
+      locals: {
+        template: template
+      }
+    })
   ]
 };

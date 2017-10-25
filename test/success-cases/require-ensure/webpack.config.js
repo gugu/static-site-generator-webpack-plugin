@@ -11,9 +11,7 @@ var paths = [
 ];
 
 module.exports = {
-  entry: {
-    main: __dirname + '/index.js'
-  },
+  entry: __dirname + '/index.js',
 
   output: {
     filename: 'index.js',
@@ -23,6 +21,14 @@ module.exports = {
   },
 
   plugins: [
-    new StaticSiteGeneratorPlugin('main', paths, { template: template }, { window: {} })
+    new StaticSiteGeneratorPlugin({
+      paths: paths,
+      locals: {
+        template: template
+      },
+      globals: {
+        window: {}
+      }
+    })
   ]
 };
